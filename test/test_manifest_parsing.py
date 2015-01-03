@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from generate import parse_package_manifest, PackageManifestException
 import unittest
 
@@ -29,6 +31,7 @@ class TestManifestParsing(unittest.TestCase):
         """
         parsed_manifest = parse_package_manifest(sample_config)
         self.assertEqual(parsed_manifest['plugin_name'], 'vimeoplaylist')
+        self.assertEqual(parsed_manifest['plugin_description'], 'jQuery plugin for creating your playlist with Vimeo.')
         self.assertEqual(parsed_manifest['plugin_version'], '0.1.0dev')
         self.assertEqual(parsed_manifest['plugin_author'], 'Nephila')
         self.assertEqual(parsed_manifest['plugin_license'], 'MIT')
