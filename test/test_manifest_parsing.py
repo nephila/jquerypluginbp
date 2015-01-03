@@ -15,22 +15,20 @@ class TestManifestParsing(unittest.TestCase):
                 "name": "vimeoplaylist",
                 "title": "jQuery Vimeo Playlist Plugin",
                 "description": "jQuery plugin for creating your playlist with Vimeo.",
-                "keywords": [
-                    "vimeo",
-                    "playlist",
-                    "video"
-                ],
                 "version": "0.1.0dev",
                 "author": {
                     "name": "Nephila"
                 },
-                "maintainers": [
+                "licenses": [
                     {
-                        "name": "Andrea Stagi",
-                        "email": "stagi.andrea@gmail.com",
-                        "url": "http://github.com/astagi"
+                        "type": "MIT",
+                        "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/LICENSE"
                     }
-                ],
+                ]
+            }
+        """
+        parsed_manifest = parse_package_manifest(sample_config)
+        self.assertEqual(parsed_manifest['plugin_name'], 'vimeoplaylist')
                 "licenses": [
                     {
                         "type": "MIT",
