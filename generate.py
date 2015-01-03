@@ -66,5 +66,3 @@ def generate(package_json_path='jquery.json', dest_path='.'):
         install_dependencies(dest_path)
     except OSError as ex:
         print (ex)
-
-generate(package_json_path='vimeoplaylist.jquery.json', dest_path='/build')
