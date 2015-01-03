@@ -29,23 +29,68 @@ class TestManifestParsing(unittest.TestCase):
         """
         parsed_manifest = parse_package_manifest(sample_config)
         self.assertEqual(parsed_manifest['plugin_name'], 'vimeoplaylist')
+        self.assertEqual(parsed_manifest['plugin_version'], '0.1.0dev')
+        self.assertEqual(parsed_manifest['plugin_author'], 'Nephila')
+        self.assertEqual(parsed_manifest['plugin_license'], 'MIT')
+
+    def test_parse_wrong_author(self):
+        sample_config = """
+            {
+                "name": "vimeoplaylist",
+                "title": "jQuery Vimeo Playlist Plugin",
+                "description": "jQuery plugin for creating your playlist with Vimeo.",
+                "version": "0.1.0dev",
+                "author": {
+                },
                 "licenses": [
                     {
                         "type": "MIT",
                         "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/LICENSE"
                     }
-                ],
-                "bugs": "https://github.com/nephila/jquery-vimeoplaylist/issues",
-                "homepage": "https://github.com/nephila/jquery-vimeoplaylist",
-                "download": "https://github.com/nephila/jquery-vimeoplaylist",
-                "dependencies": {
-                    "jquery": ">=1.4.4",
-                    "froogaloop": ">=2"
-                }
+                ]
+            }
+        """
+        parsed_manifest = self.assertRaises(PackageManifestException, parse_package_manifest, sample_config)
+
+    def test_parse_wrong_license(self):
+        sample_config = """
+            {
+                "name": "vimeoplaylist",
+                "title": "jQuery Vimeo Playlist Plugin",
+                "description": "jQuery plugin for creating your playlist with Vimeo.",
+                "version": "0.1.0dev",
+                "author": {
+                    "name": "Nephila"
+                },
+                "licenses": "MIT"
+            }
+        """
+        parsed_manifest = self.assertRaises(PackageManifestException, parse_package_manifest, sample_config)
+
+    def test_parse_multi_licenses(self):
+        sample_config = """
+            {
+                "name": "vimeoplaylist",
+                "title": "jQuery Vimeo Playlist Plugin",
+                "description": "jQuery plugin for creating your playlist with Vimeo.",
+                "version": "0.1.0dev",
+                "author": {
+                    "name": "Nephila"
+                },
+                "licenses": [
+                    {
+                        "type": "MIT",
+                        "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/LICENSE"
+                    },
+                    {
+                        "type": "RAINBOW LICENSE",
+                        "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/RAINBOW_LICENSE"
+                    }
+                ]
             }
         """
         parsed_manifest = parse_package_manifest(sample_config)
-        self.assertFalse(parsed_manifest['plugin_name'] == '')
+        self.assertEqual(parsed_manifest['plugin_license'], 'MIT,RAINBOW LICENSE')
 
     def test_parse_wrong_package_manifest(self):
         sample_config = """

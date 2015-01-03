@@ -12,13 +12,26 @@ def parse_package_manifest(package_manifest_json):
         manifest = json.loads(package_manifest_json)
     except ValueError:
         raise PackageManifestException('Invalid package manifest.')
-    required_attributes = ['name', 'description']
+    required_attributes = ['name', 'description', 'version', 'author', 'licenses']
     for required_attribute in required_attributes:
         if required_attribute not in manifest:
             raise PackageManifestException('Invalid package manifest. Missing {0} attribute.'.format(required_attribute))
+    if 'name' not in manifest['author']:
+        raise PackageManifestException('Missing field "name" in "author".')
+    if not isinstance(manifest['licenses'], list):
+        raise PackageManifestException('Field "license" is not a list.')
+
     parameters['plugin_name'] = manifest['name'] or ''
     parameters['plugin_name_cc'] = manifest['name'].title() or ''
     parameters['plugin_description'] = manifest['description'] or ''
+    parameters['plugin_version'] = manifest['version'] or ''
+    parameters['plugin_author'] = manifest['author']['name'] or ''
+    parameters['plugin_license'] = ''
+    for license in manifest['licenses']:
+        if 'type' not in license:
+            raise PackageManifestException('Missing field "type" in "license".')
+        parameters['plugin_license'] += license['type'] + ','
+    parameters['plugin_license'] = parameters['plugin_license'][:-1]
     return parameters
 
 def substitute(content, parameters):
