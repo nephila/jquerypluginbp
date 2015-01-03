@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-setup(name="jquery-pugin-boilerplate",
+setup(name="jquery-plugin-boilerplate",
       py_modules=['generate'],
       version="0.1.0",
       description="Script to generate boilerplate for you jquery plugin",
@@ -11,4 +11,9 @@ setup(name="jquery-pugin-boilerplate",
       author_email="stagi.andrea@gmail.com",
       url="",
       keywords= "jquery plugin script boilerplate",
+      entry_points = {
+        'console_scripts': [
+            'jqueryplugin = generate:main',
+        ],
+      },
       zip_safe = True)

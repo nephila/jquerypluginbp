@@ -1,3 +1,4 @@
+import argparse
 import io
 import json
 import os
@@ -67,3 +68,13 @@ def generate(package_json_path='jquery.json', dest_path='.'):
         install_dependencies(dest_path)
     except OSError as ex:
         print (ex)
+
+def main():
+    parser = argparse.ArgumentParser(description='Generate Jquery plugin boilerplate')
+    parser.add_argument('manifest', help='Jquery package manifest.')
+    parser.add_argument('-d', '--dest', default='./', help='Destination plugin folder path.')
+    args = parser.parse_args()
+    generate(args.manifest, args.dest)
+
+if __name__ == '__main__':
+    main()
