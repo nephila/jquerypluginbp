@@ -53,7 +53,8 @@ def generate_files(package_json_path='package.json', dest_path='.'):
             old_file_path = os.path.join(root, str(file_))
             io.open(new_file_path, 'w', encoding='utf-8').write(substitute(io.open(old_file_path, encoding='utf-8').read(), parameters))
     new_json_manifest_path = os.path.join(dest_path, parameters['plugin_name'] + '.jquery.json')
-    io.open(new_json_manifest_path, 'w', encoding='utf-8').write(io.open(package_json_path, encoding='utf-8').read())
+    if not os.path.exists(new_json_manifest_path):
+        io.open(new_json_manifest_path, 'w', encoding='utf-8').write(io.open(package_json_path, encoding='utf-8').read())
 
 def install_dependencies(dest_path):
     os.system('cd {0} && bower install qunit'.format(dest_path))
