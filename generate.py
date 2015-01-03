@@ -38,7 +38,7 @@ def substitute(content, parameters):
     return pystache.render(content, parameters)
 
 def generate_files(package_json_path='package.json', dest_path='.'):
-    package_manifest_content = open(package_json_path).read()
+    package_manifest_content = io.open(package_json_path, encoding='utf-8').read()
     parameters = parse_package_manifest(package_manifest_content)
     for root, dirs, files in os.walk('boilerplate'):
         new_root = root.replace('boilerplate', '')
@@ -50,9 +50,9 @@ def generate_files(package_json_path='package.json', dest_path='.'):
                 os.makedirs(new_path)
             new_file_path = os.path.join(new_path, substitute(str(file_), parameters))
             old_file_path = os.path.join(root, str(file_))
-            open(new_file_path, 'w').write(substitute(open(old_file_path).read(), parameters))
+            io.open(new_file_path, 'w', encoding='utf-8').write(substitute(io.open(old_file_path, encoding='utf-8').read(), parameters))
     new_json_manifest_path = os.path.join(dest_path, parameters['plugin_name'] + '.jquery.json')
-    open(new_json_manifest_path, 'w').write(open(package_json_path).read())
+    io.open(new_json_manifest_path, 'w', encoding='utf-8').write(io.open(package_json_path, encoding='utf-8').read())
 
 def install_dependencies(dest_path):
     os.system('cd {0} && bower install qunit'.format(dest_path))
