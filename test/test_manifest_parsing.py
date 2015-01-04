@@ -70,6 +70,25 @@ class TestManifestParsing(unittest.TestCase):
         """
         parsed_manifest = self.assertRaises(PackageManifestException, parse_package_manifest, sample_config)
 
+    def test_parse_wrong_license_without_type(self):
+        sample_config = """
+            {
+                "name": "vimeoplaylist",
+                "title": "jQuery Vimeo Playlist Plugin",
+                "description": "jQuery plugin for creating your playlist with Vimeo.",
+                "version": "0.1.0dev",
+                "author": {
+                    "name": "Nephila"
+                },
+                "licenses": [
+                    {
+                        "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/LICENSE"
+                    }
+                ]
+            }
+        """
+        self.assertRaises(PackageManifestException, parse_package_manifest, sample_config)
+
     def test_parse_multi_licenses(self):
         sample_config = """
             {
