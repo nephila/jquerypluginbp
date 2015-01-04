@@ -2,7 +2,7 @@ JqueryPluginBP
 ==============
 [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 
-Nephila's internal tool to generate boilerplate code for Jquery plugin
+Nephila's internal tool for generating Jquery plugins boilerplate code
 
 [travis-url]: https://travis-ci.org/astagi/jquery-plugin-boilerplate
 [travis-image]: http://img.shields.io/travis/astagi/jquery-plugin-boilerplate.svg
