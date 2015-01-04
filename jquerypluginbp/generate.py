@@ -3,7 +3,6 @@ import io
 import json
 import os
 import pystache
-import sys
 
 from boilerplate import BOILERPLATE
 
@@ -43,7 +42,7 @@ def substitute(content, parameters):
     return pystache.render(content, parameters)
 
 def get_current_dir():
-    return os.path.dirname(os.path.realpath(sys.argv[0]))
+    return os.path.split(__file__)[0]
 
 def generate_files(package_json_path='package.json', dest_path='.'):
     package_manifest_content = io.open(package_json_path, encoding='utf-8').read()

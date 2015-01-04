@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
-from boilerplate import BOILERPLATE
 import os
+from jquerypluginbp.boilerplate import BOILERPLATE
 
-setup(name="jquery-plugin-boilerplate",
-    py_modules=['generate', 'boilerplate'],
+setup(name="jquerypluginbp",
+    packages=['jquerypluginbp'],
+    package_dir={'jquerypluginbp': 'jquerypluginbp'},
+    package_data={'jquerypluginbp': [os.path.join('boilerplate', boilerplate) for boilerplate in BOILERPLATE]},
     version="0.1.0",
     description="Script to generate boilerplate for you jquery plugin",
     license="MIT",
@@ -13,13 +15,12 @@ setup(name="jquery-plugin-boilerplate",
     author_email="stagi.andrea@gmail.com",
     url="",
     keywords= "jquery plugin script boilerplate",
-    data_files=[(os.path.join('bin', 'boilerplate', os.path.split(boilerfile)[0]),[os.path.join('boilerplate', boilerfile)]) for boilerfile in BOILERPLATE],
     install_requires=[
         "pystache==0.5.4",
     ],
     entry_points = {
         'console_scripts': [
-            'jqueryplugin = generate:main',
+            'jquerypluginbp = jquerypluginbp.generate:main',
         ],
     },
-    zip_safe = True)
+    zip_safe = False)

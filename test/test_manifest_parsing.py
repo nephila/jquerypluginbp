@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from generate import parse_package_manifest, PackageManifestException
+from jquerypluginbp.generate import parse_package_manifest, PackageManifestException
 import unittest
 
 class TestManifestParsing(unittest.TestCase):
