@@ -14,6 +14,9 @@ setup(name="jquery-plugin-boilerplate",
     url="",
     keywords= "jquery plugin script boilerplate",
     data_files=[(os.path.join('bin', 'boilerplate', os.path.split(boilerfile)[0]),[os.path.join('boilerplate', boilerfile)]) for boilerfile in BOILERPLATE],
+    install_requires=[
+        "pystache==0.5.4",
+    ],
     entry_points = {
         'console_scripts': [
             'jqueryplugin = generate:main',
