@@ -4,6 +4,16 @@ JqueryPluginBP
 
 Nephila's internal tool for generating Jquery plugins boilerplate code
 
+Usage
+-----
+Define your plugin.json manifest file
+
+    $ jquerypluginbp yourmanifest.plugin.json
+
+You can specify the destination path
+
+    $ jquerypluginbp yourmanifest.plugin.json -d destination_path
+
 [travis-url]: https://travis-ci.org/nephila/jquerypluginbp
 [travis-image]: http://img.shields.io/travis/nephila/jquerypluginbp.svg
 
