@@ -4,8 +4,8 @@ JqueryPluginBP
 
 Nephila's internal tool for generating Jquery plugins boilerplate code
 
-[travis-url]: https://travis-ci.org/astagi/jquery-plugin-boilerplate
-[travis-image]: http://img.shields.io/travis/astagi/jquery-plugin-boilerplate.svg
+[travis-url]: https://travis-ci.org/nephila/jquerypluginbp
+[travis-image]: http://img.shields.io/travis/nephila/jquerypluginbp.svg
 
-[coveralls-url]: https://coveralls.io/r/astagi/jquery-plugin-boilerplate
-[coveralls-image]: http://img.shields.io/coveralls/astagi/jquery-plugin-boilerplate/master.svg
+[coveralls-url]: https://coveralls.io/r/nephila/jquerypluginbp
+[coveralls-image]: http://img.shields.io/coveralls/nephila/jquerypluginbp/master.svg
