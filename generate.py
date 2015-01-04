@@ -3,6 +3,7 @@ import io
 import json
 import os
 import pystache
+import sys
 
 class PackageManifestException(Exception):
     pass
@@ -39,11 +40,15 @@ def parse_package_manifest(package_manifest_json):
 def substitute(content, parameters):
     return pystache.render(content, parameters)
 
+def get_current_dir():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
+
 def generate_files(package_json_path='package.json', dest_path='.'):
     package_manifest_content = io.open(package_json_path, encoding='utf-8').read()
     parameters = parse_package_manifest(package_manifest_content)
-    for root, dirs, files in os.walk('boilerplate'):
-        new_root = root.replace('boilerplate', '')
+    boilerplate_dir = os.path.join(get_current_dir(), 'boilerplate')
+    for root, dirs, files in os.walk(boilerplate_dir):
+        new_root = root.replace(boilerplate_dir, '')
         if new_root.startswith("/"):
             new_root = new_root[1:]
         new_path = os.path.join(dest_path, new_root)
