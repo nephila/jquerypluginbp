@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
-from generate import BOILERPLATE
+from boilerplate import BOILERPLATE
 import os
 
 setup(name="jquery-plugin-boilerplate",
-    py_modules=['generate'],
+    py_modules=['generate', 'boilerplate'],
     version="0.1.0",
     description="Script to generate boilerplate for you jquery plugin",
     license="MIT",
