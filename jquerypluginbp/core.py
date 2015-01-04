@@ -4,7 +4,7 @@ import json
 import os
 import pystache
 
-from boilerplate import BOILERPLATE
+from .boilerplate import BOILERPLATE
 
 class PackageManifestException(Exception):
     pass
@@ -44,7 +44,7 @@ def substitute(content, parameters):
 def get_current_dir():
     return os.path.split(__file__)[0]
 
-def generate_files(package_json_path='package.json', dest_path='.'):
+def generate_files(package_json_path, dest_path):
     package_manifest_content = io.open(package_json_path, encoding='utf-8').read()
     parameters = parse_package_manifest(package_manifest_content)
     boilerplate_dir = os.path.join(get_current_dir(), 'boilerplate')
@@ -54,25 +54,13 @@ def generate_files(package_json_path='package.json', dest_path='.'):
         if not os.path.exists(os.path.split(dest_boilerplate_file)[0]):
             os.makedirs(os.path.split(dest_boilerplate_file)[0])
         io.open(dest_boilerplate_file, 'w', encoding='utf-8').write(substitute(io.open(src_boilerplate_file, encoding='utf-8').read(), parameters))
+    for license in parameters['plugin_license'].split(','):
+        os.system('cd {0} && lice {1} -o "{2}" >> LICENSE'.format(
+            dest_path,
+            license.lower(),
+            parameters['plugin_author']))
 
 def install_dependencies(dest_path):
     os.system('cd {0} && bower install qunit'.format(dest_path))
     os.system('cd {0} && bower install jquery'.format(dest_path))
     os.system('cd {0} && npm install'.format(dest_path))
-
-def generate(package_json_path='jquery.json', dest_path='.'):
-    try:
-        generate_files(package_json_path, dest_path)
-        install_dependencies(dest_path)
-    except OSError as ex:
-        print (ex)
-
-def main():
-    parser = argparse.ArgumentParser(description='Generate Jquery plugin boilerplate')
-    parser.add_argument('manifest', help='Jquery package manifest.')
-    parser.add_argument('-d', '--dest', default='./', help='Destination plugin folder path.')
-    args = parser.parse_args()
-    generate(args.manifest, args.dest)
-
-if __name__ == '__main__':
-    main()

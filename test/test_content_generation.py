@@ -1,4 +1,4 @@
-from jquerypluginbp.generate import substitute
+from jquerypluginbp.core import substitute
 import unittest
 
 class TestContentGeneration(unittest.TestCase):

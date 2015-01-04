@@ -1,8 +1,13 @@
 #!/usr/bin/env python
-
-from setuptools import setup, find_packages
-import os
 from jquerypluginbp.boilerplate import BOILERPLATE
+import os
+from setuptools import setup, find_packages
+import sys
+
+extra_kwargs = {}
+extra_kwargs['install_requires'] = ['pystache==0.5.4', 'lice==0.4']
+if sys.version_info < (2, 7):
+    extra_kwargs['install_requires'].append('argparse')
 
 setup(name="jquerypluginbp",
     packages=['jquerypluginbp'],
@@ -15,12 +20,10 @@ setup(name="jquerypluginbp",
     author_email="stagi.andrea@gmail.com",
     url="",
     keywords= "jquery plugin script boilerplate",
-    install_requires=[
-        "pystache==0.5.4",
-    ],
     entry_points = {
         'console_scripts': [
-            'jquerypluginbp = jquerypluginbp.generate:main',
+            'jquerypluginbp = jquerypluginbp.main:main',
         ],
     },
-    zip_safe = False)
+    zip_safe = False,
+    **extra_kwargs)

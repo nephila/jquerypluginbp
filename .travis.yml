@@ -11,6 +11,6 @@ python:
 install:
   - pip install -r requirements-test.txt
 
-script: nosetests --with-coverage --cover-package=generate
+script: nosetests --with-coverage --cover-package=jquerypluginbp.core
 
 after_success: coveralls
