@@ -53,20 +53,12 @@ def generate_files(package_json_path='package.json', dest_path='.'):
     package_manifest_content = io.open(package_json_path, encoding='utf-8').read()
     parameters = parse_package_manifest(package_manifest_content)
     boilerplate_dir = os.path.join(get_current_dir(), 'boilerplate')
-    for root, dirs, files in os.walk(boilerplate_dir):
-        new_root = root.replace(boilerplate_dir, '')
-        if new_root.startswith("/"):
-            new_root = new_root[1:]
-        new_path = os.path.join(dest_path, new_root)
-        for file_ in files:
-            if not os.path.exists(new_path):
-                os.makedirs(new_path)
-            new_file_path = os.path.join(new_path, substitute(str(file_), parameters))
-            old_file_path = os.path.join(root, str(file_))
-            io.open(new_file_path, 'w', encoding='utf-8').write(substitute(io.open(old_file_path, encoding='utf-8').read(), parameters))
-    new_json_manifest_path = os.path.join(dest_path, parameters['plugin_name'] + '.jquery.json')
-    if not os.path.exists(new_json_manifest_path):
-        io.open(new_json_manifest_path, 'w', encoding='utf-8').write(io.open(package_json_path, encoding='utf-8').read())
+    for boilerplate_file in BOILERPLATE:
+        src_boilerplate_file = os.path.join(boilerplate_dir, boilerplate_file)
+        dest_boilerplate_file = os.path.join(dest_path, substitute(boilerplate_file, parameters))
+        if not os.path.exists(os.path.split(dest_boilerplate_file)[0]):
+            os.makedirs(os.path.split(dest_boilerplate_file)[0])
+        io.open(dest_boilerplate_file, 'w', encoding='utf-8').write(substitute(io.open(src_boilerplate_file, encoding='utf-8').read(), parameters))
 
 def install_dependencies(dest_path):
     os.system('cd {0} && bower install qunit'.format(dest_path))
