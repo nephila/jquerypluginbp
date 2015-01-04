@@ -1,10 +1,12 @@
-import argparse
 import io
 import json
 import os
 import pystache
 
 from .boilerplate import BOILERPLATE
+from .lice import core as lice
+
+from datetime import date
 
 class PackageManifestException(Exception):
     pass
@@ -55,10 +57,21 @@ def generate_files(package_json_path, dest_path):
             os.makedirs(os.path.split(dest_boilerplate_file)[0])
         io.open(dest_boilerplate_file, 'w', encoding='utf-8').write(substitute(io.open(src_boilerplate_file, encoding='utf-8').read(), parameters))
     for license in parameters['plugin_license'].split(','):
-        os.system('cd {0} && lice {1} -o "{2}" >> LICENSE'.format(
+        """os.system('cd {0} && lice {1} -o "{2}" >> LICENSE'.format(
             dest_path,
             license.lower(),
-            parameters['plugin_author']))
+            parameters['plugin_author']))"""
+        context = {}
+        context['year'] = '{0}'.format(date.today().year)
+        context['organization'] = parameters['plugin_author']
+        context['project'] = parameters['plugin_name']
+        template = lice.load_package_template(license.lower())
+        content = lice.generate_license(template, context)
+        out = lice.format_license(content, 'txt')
+        out.seek(0)
+        with open(os.path.join(dest_path, 'LICENSE'), "w") as f:
+            f.write(out.getvalue())
+        f.close()
 
 def install_dependencies(dest_path):
     os.system('cd {0} && bower install qunit'.format(dest_path))

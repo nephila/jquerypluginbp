@@ -5,14 +5,17 @@ from setuptools import setup, find_packages
 import sys
 
 extra_kwargs = {}
-extra_kwargs['install_requires'] = ['pystache==0.5.4', 'lice==0.4']
+extra_kwargs['install_requires'] = ['pystache==0.5.4']
 if sys.version_info < (2, 7):
     extra_kwargs['install_requires'].append('argparse')
 
+package_data = [os.path.join('boilerplate', boilerplate) for boilerplate in BOILERPLATE]
+package_data.extend(['lice/*.txt'])
+
 setup(name="jquerypluginbp",
-    packages=['jquerypluginbp'],
+    packages=['jquerypluginbp', 'jquerypluginbp.lice'],
     package_dir={'jquerypluginbp': 'jquerypluginbp'},
-    package_data={'jquerypluginbp': [os.path.join('boilerplate', boilerplate) for boilerplate in BOILERPLATE]},
+    package_data={'jquerypluginbp': package_data},
     version="0.1.0",
     description="Script to generate boilerplate for you jquery plugin",
     license="MIT",

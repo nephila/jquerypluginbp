@@ -1,8 +1,9 @@
-import .core
+import argparse
+from .core import generate_files, install_dependencies, PackageManifestException
 
 def generate(package_json_path='jquery.json', dest_path='.'):
-    core.generate_files(package_json_path, dest_path)
-    core.install_dependencies(dest_path)
+    generate_files(package_json_path, dest_path)
+    install_dependencies(dest_path)
 
 def main():
     parser = argparse.ArgumentParser(description='Generate Jquery plugin boilerplate')
@@ -13,7 +14,7 @@ def main():
         generate(args.manifest, args.dest)
     except OSError as osex:
         print (osex)
-    except core.PackageManifestException as pmex:
+    except PackageManifestException as pmex:
         print (pmex)
 
 if __name__ == '__main__':
