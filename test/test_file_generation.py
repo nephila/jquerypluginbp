@@ -35,3 +35,27 @@ class TestGenerateBoilerplateFiles(unittest.TestCase):
         for boilerplate in BOILERPLATE:
             boilerplate = boilerplate.replace('{{plugin_name}}', 'vimeoplaylist')
             self.assertTrue(os.path.exists(os.path.join('pluginbuild', boilerplate)))
+
+    def test_wrong_license_generation(self):
+        sample_config = """
+            {
+                "name": "vimeoplaylist",
+                "title": "jQuery Vimeo Playlist Plugin",
+                "description": "jQuery plugin for creating your playlist with Vimeo.",
+                "version": "0.1.0dev",
+                "author": {
+                    "name": "Nephila"
+                },
+                "licenses": [
+                    {
+                        "type": "MITZ",
+                        "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/LICENSE"
+                    }
+                ]
+            }
+        """
+        open('sample.package.json', 'w').write(sample_config)
+        generate_files('sample.package.json', 'pluginbuild')
+        self.assertTrue(os.path.exists(os.path.join('pluginbuild', 'LICENSE')))
+        self.assertEqual(open(os.path.join('pluginbuild', 'LICENSE')).read(), '')
+
