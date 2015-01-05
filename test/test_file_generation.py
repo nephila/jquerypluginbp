@@ -57,8 +57,8 @@ class TestGenerateBoilerplateFiles(unittest.TestCase):
         open('sample.package.json', 'w').write(sample_config)
         generate_files('sample.package.json', 'pluginbuild')
         self.assertTrue(os.path.exists(os.path.join('pluginbuild', 'LICENSE')))
-        self.assertIn('The MIT License', open(os.path.join('pluginbuild', 'LICENSE')).read())
-        self.assertIn('GNU GENERAL PUBLIC LICENSE', open(os.path.join('pluginbuild', 'LICENSE')).read())
+        self.assertTrue('The MIT License' in open(os.path.join('pluginbuild', 'LICENSE')).read())
+        self.assertTrue('GNU GENERAL PUBLIC LICENSE' in open(os.path.join('pluginbuild', 'LICENSE')).read())
 
     def test_wrong_license_generation(self):
         sample_config = """
