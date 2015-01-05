@@ -62,12 +62,13 @@ def generate_files(package_json_path, dest_path):
             context['year'] = '{0}'.format(date.today().year)
             context['organization'] = parameters['plugin_author']
             context['project'] = parameters['plugin_name']
-            template = lice.load_package_template(license.lower())
+            template = lice.load_package_template(license.strip().lower())
             content = lice.generate_license(template, context)
             out = lice.format_license(content, 'txt')
             out.seek(0)
-            with open(os.path.join(dest_path, 'LICENSE'), "w") as f:
+            with open(os.path.join(dest_path, 'LICENSE'), "a") as f:
                 f.write(out.getvalue())
+                f.write('\n\n')
             f.close()
         except IOError:
             pass
