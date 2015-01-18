@@ -1,8 +1,8 @@
-JqueryPluginBP
+jQueryPluginBP
 ==============
 [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 
-Nephila's internal tool for generating Jquery plugins boilerplate code
+Nephila's internal tool for generating jQuery plugins boilerplate code
 
 Usage
 -----
