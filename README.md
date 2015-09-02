@@ -7,8 +7,12 @@ jQueryPluginBP
 
 Nephila's internal tool for generating jQuery plugins boilerplate code
 
-Usage
------
+## Install
+
+    pip install jquerypluginbp
+
+## Usage
+
 Define your plugin.json manifest file
 
     $ jquerypluginbp yourmanifest.plugin.json
