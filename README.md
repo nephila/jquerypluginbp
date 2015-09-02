@@ -13,11 +13,47 @@ Nephila's internal tool for generating jQuery plugins boilerplate code
 
 ## Usage
 
-Define your plugin.json manifest file
+First of all you need to define your plugin.json manifest file. A real life example:
+
+    {
+        "name": "vimeoplaylist",
+        "title": "jQuery Vimeo Playlist Plugin",
+        "description": "jQuery plugin for creating your playlists with Vimeo.",
+        "keywords": [
+            "vimeo",
+            "playlist",
+            "video"
+        ],
+        "version": "0.2.0",
+        "author": {
+            "name": "Nephila"
+        },
+        "maintainers": [
+            {
+                "name": "Andrea Stagi",
+                "email": "stagi.andrea@gmail.com",
+                "url": "http://github.com/astagi"
+            }
+        ],
+        "licenses": [
+            {
+                "type": "MIT",
+                "url": "https://github.com/nephila/jquery-vimeoplaylist/blob/master/LICENSE"
+            }
+        ],
+        "bugs": "https://github.com/nephila/jquery-vimeoplaylist/issues",
+        "homepage": "https://github.com/nephila/jquery-vimeoplaylist",
+        "download": "https://github.com/nephila/jquery-vimeoplaylist",
+        "dependencies": {
+            "jquery": ">=1.7"
+        }
+    }
+    
+Now you can run jquerypluginbp:
 
     $ jquerypluginbp yourmanifest.plugin.json
 
-You can specify the destination path
+You can also specify the destination path:
 
     $ jquerypluginbp yourmanifest.plugin.json -d destination_path
 
